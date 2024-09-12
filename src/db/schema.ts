@@ -11,3 +11,25 @@ export const employee = pgTable("employee", {
     .notNull()
     .defaultNow(),
 });
+
+export const service = pgTable("service", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  address: text("address").notNull(),
+  value: text("value").notNull(),
+  date: timestamp("date", { withTimezone: true }).notNull(),
+  createdAt: timestamp("date", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const employeeService = pgTable("employee_service", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  employeeId: text("employee_id")
+    .references(() => employee.id)
+    .notNull(),
+  serviceId: text("service_id")
+    .references(() => service.id)
+    .notNull(),
+});
