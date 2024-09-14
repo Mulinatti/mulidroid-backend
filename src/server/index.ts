@@ -1,18 +1,13 @@
 import fastify from "fastify";
-import { getEmployees } from "../services/get/get-employees";
-import { getServices } from "../services/get/get-services";
+import { getServicesRoute } from "./routes/get-services";
+import { getEmployeesRoute } from "./routes/get-employees";
+import { getVehiclesRoute } from "./routes/get-vehicles";
 
 const app = fastify();
 
-app.get("/employees", async () => {
-  const result = await getEmployees();
-  return result;
-});
-
-app.get("/services", async () => {
-  const result = await getServices();
-  return result;
-});
+app.register(getEmployeesRoute);
+app.register(getServicesRoute);
+app.register(getVehiclesRoute);
 
 app
   .listen({
