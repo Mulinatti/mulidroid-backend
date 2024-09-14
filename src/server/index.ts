@@ -1,6 +1,6 @@
 import fastify from "fastify";
-import { getEmployees } from "../services/get-employees";
-import { getServices } from "../services/get-services";
+import { getEmployees } from "../services/get/get-employees";
+import { getServices } from "../services/get/get-services";
 
 const app = fastify();
 

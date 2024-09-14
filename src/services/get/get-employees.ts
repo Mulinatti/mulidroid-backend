@@ -1,5 +1,5 @@
-import { db } from "../db";
-import { employee } from "../db/schema";
+import { db } from "../../db";
+import { employee } from "../../db/schema";
 
 export const getEmployees = async () => {
   const employees = await db
