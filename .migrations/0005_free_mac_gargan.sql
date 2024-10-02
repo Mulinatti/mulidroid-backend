@@ -1,1 +1,0 @@
-ALTER TABLE "service" ADD COLUMN "neighborhood" text NOT NULL;

@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, integer } from "drizzle-orm/pg-core";
 
 export const employee = pgTable("employee", {
   id: text("id")
@@ -8,7 +8,8 @@ export const employee = pgTable("employee", {
   alias: text("alias").notNull().unique(),
   name: text("name").notNull(),
   driver: boolean("driver").notNull(),
-  birthdate: timestamp("birthdate").notNull(),
+  birthdate: text("birthdate").notNull(),
+  phoneNumber: text("phone_number").notNull().unique(),
 });
 
 export const user = pgTable("user", {
@@ -30,8 +31,8 @@ export const service = pgTable("service", {
     .$defaultFn(() => createId()),
   address: text("address").notNull(),
   neighborhood: text("neighborhood").notNull(),
-  value: text("value").notNull(),
-  date: timestamp("date", { withTimezone: false }).notNull(),
+  value: integer("value").notNull(),
+  serviceDate: text("service_date").notNull(),
   createdAt: timestamp("date", { withTimezone: true }).notNull().defaultNow(),
 });
 

@@ -1,4 +1,4 @@
-name: mulidroid-server
+name: mulidroid-api
 
 services:
   pg:

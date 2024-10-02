@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1726099699151,
-      "tag": "0000_square_cable",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1726173907705,
-      "tag": "0001_peaceful_steel_serpent",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1726343742812,
-      "tag": "0002_new_morgan_stark",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1726343811107,
-      "tag": "0003_giant_blob",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1726343929773,
-      "tag": "0004_late_impossible_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1726344055057,
-      "tag": "0005_free_mac_gargan",
+      "when": 1726600769110,
+      "tag": "0000_supreme_synch",
       "breakpoints": true
     }
   ]
