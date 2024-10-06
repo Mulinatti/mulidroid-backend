@@ -1,28 +1,39 @@
-import { eq } from "drizzle-orm";
+import { count, eq, sql } from "drizzle-orm";
 import { db } from "../../db";
-import { employee as employeeTable, employee, employeeService, service } from "../../db/schema";
+import {
+  employee,
+  employeeService,
+  service,
+} from "../../db/schema";
 
 export const getServices = async () => {
-  const services = await db.select().from(service);
+  const employeesCount = db.$with("employees_count").as(
+    db
+      .select({
+        serviceId: employeeService.serviceId,
+        employeesCount: count(employee.id).as("employeesCount"),
+      })
+      .from(employeeService)
+      .innerJoin(
+        employee,
+        eq(employee.id, employeeService.employeeId)
+      )
+      .groupBy(employeeService.serviceId)
+  );
 
-  const result = [];
-
-  for(const service of services) {
-    const employee = await db.select({
-      id: employeeTable.id,
-      alias: employeeTable.alias
+  const result = await db
+    .with(employeesCount)
+    .select({
+      serviceId: service.id,
+      address: service.address,
+      neighborhood: service.neighborhood,
+      value: service.value,
+      serviceDate: service.serviceDate,
+      employeesCount: employeesCount.employeesCount,
     })
-    .from(employeeTable)
-    .innerJoin(employeeService, eq(employeeTable.id, employeeService.employeeId))
-    .where(eq(employeeService.serviceId, service.id))
-
-    const serviceWithEmployee = {
-      service,
-      employees: employee
-    }
-
-    result.push(serviceWithEmployee);
-  }
+    .from(service)
+    .leftJoin(employeesCount, eq(service.id, employeesCount.serviceId))
+    .orderBy(service.serviceDate);
 
   return result;
 };
