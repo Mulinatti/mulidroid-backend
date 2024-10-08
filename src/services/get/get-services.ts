@@ -21,7 +21,7 @@ export const getServices = async () => {
       .groupBy(employeeService.serviceId)
   );
 
-  const result = await db
+  const services = await db
     .with(employeesCount)
     .select({
       serviceId: service.id,
@@ -35,5 +35,5 @@ export const getServices = async () => {
     .leftJoin(employeesCount, eq(service.id, employeesCount.serviceId))
     .orderBy(service.serviceDate);
 
-  return result;
+  return services;
 };

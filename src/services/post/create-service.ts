@@ -6,6 +6,7 @@ interface CreateServiceRequest {
   neighborhood: string;
   value: number;
   serviceDate: string;
+  vehicle: string;
   employees: string[];
 }
 
@@ -14,13 +15,15 @@ export const createService = async ({
   neighborhood,
   value,
   serviceDate,
+  vehicle,
   employees,
 }: CreateServiceRequest) => {
   const createdService = await db.insert(service).values({
     address,
     neighborhood,
     value,
-    serviceDate
+    serviceDate,
+    vehicle
   }).returning();
 
   for(const employeeId of employees) {
