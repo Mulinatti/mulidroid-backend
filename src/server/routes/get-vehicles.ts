@@ -3,7 +3,7 @@ import { getVehicles } from "../../services/get/get-vehicles";
 
 export const getVehiclesRoute: FastifyPluginAsyncZod = async (app) => {
   app.get("/vehicles", async () => {
-    const result = await getVehicles();
-    return result;
+    const vehicles = await getVehicles();
+    return vehicles;
   });
 };
