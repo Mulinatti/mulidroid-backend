@@ -5,6 +5,7 @@ import { getVehiclesRoute } from "./routes/get-vehicles";
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import { createEmployeesRoute } from "./routes/create-employee";
 import { createServiceRoute } from "./routes/create-service";
+import { createVehicleRoute } from "./routes/create-vehicle";
 
 const app = fastify();
 
@@ -16,6 +17,7 @@ app.register(getServicesRoute);
 app.register(getVehiclesRoute);
 app.register(createEmployeesRoute);
 app.register(createServiceRoute);
+app.register(createVehicleRoute);
 
 app
   .listen({
