@@ -14,6 +14,7 @@ export const createServiceRoute: FastifyPluginAsyncZod = async (app) => {
             message: "Insira um valor válido",
           }),
           serviceDate: z.string(),
+          vehicle: z.string(),
           employees: z.string().array(),
         }),
       },
