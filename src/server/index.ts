@@ -8,6 +8,7 @@ import { createServiceRoute } from "./routes/create-service-route";
 import { createVehicleRoute } from "./routes/create-vehicle-route";
 import { getServiceByIdRoute } from "./routes/get-service-by-id-route";
 import { getEmployeeByIdRoute } from "./routes/get-employee-by-id-route";
+import { env } from "../env";
 
 const app = fastify();
 
@@ -27,8 +28,8 @@ app.register(createVehicleRoute);
 
 app
   .listen({
-    port: 4040,
+    port: Number.parseInt(env.PORT)
   })
   .then(() => {
-    console.log("Server Running at PORT 4040");
+    console.log(`Server Running at PORT ${env.PORT}`);
   });
