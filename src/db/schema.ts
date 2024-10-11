@@ -1,5 +1,11 @@
 import { createId } from "@paralleldrive/cuid2";
-import { boolean, pgTable, text, timestamp, integer } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  pgTable,
+  text,
+  timestamp,
+  integer,
+} from "drizzle-orm/pg-core";
 
 export const employee = pgTable("employee", {
   id: text("id")
@@ -19,7 +25,9 @@ export const user = pgTable("user", {
   username: text("username").unique().notNull(),
   password: text("password").notNull(),
   admin: boolean("admin").notNull().default(false),
-  employeeId: text("employee_id").references(() => employee.id),
+  employeeId: text("employee_id")
+    .references(() => employee.id)
+    .notNull(),
   createdAt: timestamp("createdAt", { withTimezone: true })
     .notNull()
     .defaultNow(),
@@ -33,6 +41,9 @@ export const service = pgTable("service", {
   neighborhood: text("neighborhood").notNull(),
   value: integer("value").notNull(),
   serviceDate: text("service_date").notNull(),
+  vehicle: text("vehicle_id")
+    .references(() => vehicle.id)
+    .notNull(),
   createdAt: timestamp("date", { withTimezone: true }).notNull().defaultNow(),
 });
 
@@ -46,6 +57,7 @@ export const employeeService = pgTable("employee_service", {
   serviceId: text("service_id")
     .references(() => service.id)
     .notNull(),
+  isPaid: boolean("is_paid").notNull().default(false),
 });
 
 export const vehicle = pgTable("vehicle", {

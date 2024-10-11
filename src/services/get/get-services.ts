@@ -1,9 +1,11 @@
-import { count, eq, sql } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import { db } from "../../db";
 import {
   employee,
   employeeService,
   service,
+  vehicle,
+
 } from "../../db/schema";
 
 export const getServices = async () => {
@@ -21,7 +23,7 @@ export const getServices = async () => {
       .groupBy(employeeService.serviceId)
   );
 
-  const result = await db
+  const services = await db
     .with(employeesCount)
     .select({
       serviceId: service.id,
@@ -29,11 +31,16 @@ export const getServices = async () => {
       neighborhood: service.neighborhood,
       value: service.value,
       serviceDate: service.serviceDate,
+      vehicle: {
+        plate: vehicle.plate,
+        model: vehicle.model
+      },
       employeesCount: employeesCount.employeesCount,
     })
     .from(service)
     .leftJoin(employeesCount, eq(service.id, employeesCount.serviceId))
+    .leftJoin(vehicle, eq(vehicle.id, service.vehicle))
     .orderBy(service.serviceDate);
 
-  return result;
+  return services;
 };
