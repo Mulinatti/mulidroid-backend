@@ -28,6 +28,7 @@ app.register(createVehicleRoute);
 
 app
   .listen({
+    host: "0.0.0.0",
     port: Number.parseInt(env.PORT)
   })
   .then(() => {
