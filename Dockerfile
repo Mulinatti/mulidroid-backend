@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 10000
 
-CMD ["npm", "build"]
+CMD ["npm", "start"]

@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/server/index.ts",
-    "start": "tsx watch --env-file .env src/server/index.ts",
-    "build": "tsc --project tsconfig.json --outDir dist"
+    "start": "tsc --project tsconfig.json --outDir dist"
   },
   "keywords": [],
   "author": "",
