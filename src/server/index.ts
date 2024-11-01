@@ -26,6 +26,10 @@ app.register(createEmployeesRoute);
 app.register(createServiceRoute);
 app.register(createVehicleRoute);
 
+app.get("/teste", () => {
+  return "API CONECTA";
+})
+
 app
   .listen({
     host: "0.0.0.0",
