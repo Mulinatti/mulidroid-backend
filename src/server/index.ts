@@ -26,12 +26,6 @@ app.register(createEmployeesRoute);
 app.register(createServiceRoute);
 app.register(createVehicleRoute);
 
-app.get("/teste", () => {
-  return {
-    vasco: "api conectante"
-  };
-})
-
 app
   .listen({
     host: "0.0.0.0",

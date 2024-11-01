@@ -1,8 +1,10 @@
 import z from "zod";
+import dotenv from "dotenv";
+dotenv.config();
 
 const envSchema = z.object({
-  DATABASE_URL: z.string().url().default("postgresql://mulidroid_owner:8CIi5xzUXoVt@ep-old-dew-a5bc1fzw.us-east-2.aws.neon.tech/mulidroid?sslmode=require"),
-  PORT: z.string().default("4040")
+  DATABASE_URL: z.string().url().default(JSON.stringify(process.env.DATABASE_URL)),
+  PORT: z.string().default("10000")
 });
 
 export const env = envSchema.parse(process.env);
