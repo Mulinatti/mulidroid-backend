@@ -27,7 +27,9 @@ app.register(createServiceRoute);
 app.register(createVehicleRoute);
 
 app.get("/teste", () => {
-  return "API CONECTA";
+  return {
+    vasco: "api conectante"
+  };
 })
 
 app
