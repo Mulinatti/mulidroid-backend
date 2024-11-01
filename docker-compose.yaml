@@ -18,7 +18,5 @@ services:
     environment:
       - DATABASE_URL=postgresql://mulidroid:mdroid@pg:5432/mulidroid
       - PORT=10000
-    depends_on:
-      - pg
 
 
