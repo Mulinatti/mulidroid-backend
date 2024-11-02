@@ -1,14 +1,18 @@
 import fastify from "fastify";
-import { getServicesRoute } from "./routes/get-services-route";
-import { getEmployeeRoute } from "./routes/get-employees-route";
-import { getVehiclesRoute } from "./routes/get-vehicles-route";
-import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
-import { createEmployeesRoute } from "./routes/create-employee-route";
-import { createServiceRoute } from "./routes/create-service-route";
-import { createVehicleRoute } from "./routes/create-vehicle-route";
-import { getServiceByIdRoute } from "./routes/get-service-by-id-route";
-import { getEmployeeByIdRoute } from "./routes/get-employee-by-id-route";
+import { getServicesRoute } from "./routes/get/get-services-route";
+import { getEmployeeRoute } from "./routes/get/get-employees-route";
+import { getVehiclesRoute } from "./routes/get/get-vehicles-route";
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from "fastify-type-provider-zod";
+import { createEmployeesRoute } from "./routes/post/create-employee-route";
+import { createServiceRoute } from "./routes/post/create-service-route";
+import { createVehicleRoute } from "./routes/post/create-vehicle-route";
+import { getServiceByIdRoute } from "./routes/get/get-service-by-id-route";
+import { getEmployeeByIdRoute } from "./routes/get/get-employee-by-id-route";
 import { env } from "../env";
+import { deleteEmployeeByIdRoute } from "./routes/delete/delete-employee-by-id-route";
 
 const app = fastify();
 
@@ -26,10 +30,12 @@ app.register(createEmployeesRoute);
 app.register(createServiceRoute);
 app.register(createVehicleRoute);
 
+app.register(deleteEmployeeByIdRoute);
+
 app
   .listen({
     host: "0.0.0.0",
-    port: Number.parseInt(env.PORT)
+    port: Number.parseInt(env.PORT),
   })
   .then(() => {
     console.log(`Server Running at PORT ${env.PORT}`);

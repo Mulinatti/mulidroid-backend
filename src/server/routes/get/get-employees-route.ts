@@ -1,5 +1,5 @@
-import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
-import { getEmployees } from '../../services/get/get-employees';
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import { getEmployees } from "../../../services/get/get-employees";
 
 export const getEmployeeRoute: FastifyPluginAsyncZod = async (app) => {
   app.get("/employee", async () => {

@@ -1,6 +1,6 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import z from "zod";
-import { createEmployee } from "../../services/post/create-employee";
+import { createEmployee } from "../../../services/post/create-employee";
 
 export const createEmployeesRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(

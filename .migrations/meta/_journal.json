@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1726600769110,
-      "tag": "0000_supreme_synch",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1728410745575,
-      "tag": "0001_mean_tag",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1728411879338,
-      "tag": "0002_sudden_impossible_man",
+      "when": 1730574887522,
+      "tag": "0000_wooden_stature",
       "breakpoints": true
     }
   ]

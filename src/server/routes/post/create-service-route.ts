@@ -1,6 +1,6 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import z from "zod";
-import { createService } from "../../services/post/create-service";
+import { createService } from "../../../services/post/create-service";
 
 export const createServiceRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(

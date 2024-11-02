@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS "employee" (
 CREATE TABLE IF NOT EXISTS "employee_service" (
 	"id" text PRIMARY KEY NOT NULL,
 	"employee_id" text NOT NULL,
-	"service_id" text NOT NULL
+	"service_id" text NOT NULL,
+	"is_paid" boolean DEFAULT false NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "service" (
@@ -21,6 +22,7 @@ CREATE TABLE IF NOT EXISTS "service" (
 	"neighborhood" text NOT NULL,
 	"value" integer NOT NULL,
 	"service_date" text NOT NULL,
+	"vehicle_id" text NOT NULL,
 	"date" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
@@ -29,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"username" text NOT NULL,
 	"password" text NOT NULL,
 	"admin" boolean DEFAULT false NOT NULL,
-	"employee_id" text,
+	"employee_id" text NOT NULL,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "user_username_unique" UNIQUE("username")
 );
@@ -43,7 +45,7 @@ CREATE TABLE IF NOT EXISTS "vehicle" (
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "employee_service" ADD CONSTRAINT "employee_service_employee_id_employee_id_fk" FOREIGN KEY ("employee_id") REFERENCES "public"."employee"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "employee_service" ADD CONSTRAINT "employee_service_employee_id_employee_id_fk" FOREIGN KEY ("employee_id") REFERENCES "public"."employee"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -55,7 +57,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "user" ADD CONSTRAINT "user_employee_id_employee_id_fk" FOREIGN KEY ("employee_id") REFERENCES "public"."employee"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "service" ADD CONSTRAINT "service_vehicle_id_vehicle_id_fk" FOREIGN KEY ("vehicle_id") REFERENCES "public"."vehicle"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user" ADD CONSTRAINT "user_employee_id_employee_id_fk" FOREIGN KEY ("employee_id") REFERENCES "public"."employee"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

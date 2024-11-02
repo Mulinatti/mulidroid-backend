@@ -26,7 +26,7 @@ export const user = pgTable("user", {
   password: text("password").notNull(),
   admin: boolean("admin").notNull().default(false),
   employeeId: text("employee_id")
-    .references(() => employee.id)
+    .references(() => employee.id, { onDelete: "cascade" })
     .notNull(),
   createdAt: timestamp("createdAt", { withTimezone: true })
     .notNull()
@@ -52,10 +52,10 @@ export const employeeService = pgTable("employee_service", {
     .primaryKey()
     .$defaultFn(() => createId()),
   employeeId: text("employee_id")
-    .references(() => employee.id)
+    .references(() => employee.id, { onDelete: "cascade" })
     .notNull(),
   serviceId: text("service_id")
-    .references(() => service.id)
+    .references(() => service.id, { onDelete: "cascade" })
     .notNull(),
   isPaid: boolean("is_paid").notNull().default(false),
 });
