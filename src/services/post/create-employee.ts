@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
 import { employee, user } from "../../db/schema";
+import { sendInfoToUserEmail } from "../../utils/send-info-to-user-email";
 
 interface CreateEmployeeRequest {
   name: string;
@@ -8,6 +9,7 @@ interface CreateEmployeeRequest {
   birthdate: string;
   driver: boolean;
   username: string;
+  email: string;
   phoneNumber: string;
 }
 
@@ -17,6 +19,7 @@ export const createEmployee = async ({
   birthdate,
   driver,
   username,
+  email,
   phoneNumber,
 }: CreateEmployeeRequest) => {
   
@@ -37,7 +40,10 @@ export const createEmployee = async ({
 
   await db.insert(user).values({
     username,
+    email,
     password: randomPassword,
     employeeId: createdEmployee[0].id,
+  }).then(() => {
+    sendInfoToUserEmail(email, username, randomPassword).catch(console.error)
   });
 };

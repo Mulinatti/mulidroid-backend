@@ -23,6 +23,7 @@ export const user = pgTable("user", {
     .primaryKey()
     .$defaultFn(() => createId()),
   username: text("username").unique().notNull(),
+  email: text("email").unique().notNull(),
   password: text("password").notNull(),
   admin: boolean("admin").notNull().default(false),
   employeeId: text("employee_id")
