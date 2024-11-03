@@ -1,20 +1,20 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import type { FastifyRequest } from "fastify";
 import { getEmployeeById } from "../../../services/get/get-employee-by-id";
-import { deleteEmployee } from "../../../services/delete/delete-employee";
+import { deleteEmployeeById } from "../../../services/delete/delete-employee-by-id";
 
-type employeeIdRequest = FastifyRequest<{
+type EmployeeIdRequest = FastifyRequest<{
   Params: {
     employeeId: string;
   };
 }>;
 
 export const deleteEmployeeByIdRoute: FastifyPluginAsyncZod = async (app) => {
-  app.delete("/employee/:employeeId", async ({ params }: employeeIdRequest) => {
+  app.delete("/employee/:employeeId", async ({ params }: EmployeeIdRequest) => {
     const employeeExists = await getEmployeeById(params.employeeId);
 
     if (employeeExists) {
-      deleteEmployee(params.employeeId);
+      deleteEmployeeById(params.employeeId);
       return "Employee Deleted";
     }
 
