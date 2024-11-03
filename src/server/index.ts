@@ -14,6 +14,7 @@ import { getEmployeeByIdRoute } from "./routes/get/get-employee-by-id-route";
 import { env } from "../env";
 import { deleteEmployeeByIdRoute } from "./routes/delete/delete-employee-by-id-route";
 import { deleteServiceByIdRoute } from "./routes/delete/delete-service-by-id-route";
+import { deleteVehicleByIdRoute } from "./routes/delete/delete-vehicle-by-id-route";
 
 const app = fastify();
 
@@ -33,6 +34,7 @@ app.register(createVehicleRoute);
 
 app.register(deleteEmployeeByIdRoute);
 app.register(deleteServiceByIdRoute);
+app.register(deleteVehicleByIdRoute);
 
 app
   .listen({
