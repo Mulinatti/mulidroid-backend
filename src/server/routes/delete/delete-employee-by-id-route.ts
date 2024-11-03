@@ -13,7 +13,7 @@ export const deleteEmployeeByIdRoute: FastifyPluginAsyncZod = async (app) => {
   app.delete("/employee/:employeeId", async ({ params }: EmployeeIdRequest) => {
     const employeeExists = await getEmployeeById(params.employeeId);
 
-    if (employeeExists) {
+    if (employeeExists.id) {
       deleteEmployeeById(params.employeeId);
       return "Employee Deleted";
     }

@@ -13,9 +13,9 @@ export const deleteServiceByIdRoute: FastifyPluginAsyncZod = async (app) => {
   app.delete("/service/:serviceId", async ({ params }: ServiceIdRequest) => {
     const serviceExists = await getServiceById(params.serviceId);
 
-    if (serviceExists) {
+    if (serviceExists.id) {
       await deleteServiceById(params.serviceId);
-      return "Service Deleted";
+      return "Service deleted";
     }
 
     return "Service not found";
