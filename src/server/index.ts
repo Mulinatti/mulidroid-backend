@@ -18,6 +18,7 @@ import { deleteVehicleByIdRoute } from "./routes/delete/delete-vehicle-by-id-rou
 import { updateEmployeesByIdRoute } from "./routes/put/update-employee-by-id-route";
 import { updateServiceByIdRoute } from "./routes/put/update-service-by-id-route";
 import { updateUserByIdRoute } from "./routes/put/update-user-by-id-route";
+import { loginUserRoute } from "./routes/login/login-user-route";
 
 const app = fastify();
 
@@ -42,6 +43,8 @@ app.register(deleteVehicleByIdRoute);
 app.register(updateEmployeesByIdRoute);
 app.register(updateServiceByIdRoute);
 app.register(updateUserByIdRoute);
+
+app.register(loginUserRoute);
 
 app
   .listen({

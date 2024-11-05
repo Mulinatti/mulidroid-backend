@@ -2,6 +2,7 @@ import { db } from "../../db";
 import { employee, user } from "../../db/schema";
 import { sendInfoToUserEmail } from "../../utils/send-info-to-user-email";
 import type { IEmployeePost } from "../../interfaces/IEmployee";
+import { hash } from "bcrypt";
 
 export const createEmployee = async ({
   name,
@@ -15,6 +16,8 @@ export const createEmployee = async ({
   const randomPassword = Math.floor(
     Math.random() * (9999 - 1000) + 1000
   ).toString();
+
+  const hashPassword = await hash(randomPassword, 5);
 
   const createdEmployee = await db
     .insert(employee)
@@ -32,10 +35,10 @@ export const createEmployee = async ({
     .values({
       username,
       email,
-      password: randomPassword,
+      password: hashPassword,
       employeeId: createdEmployee[0].id,
     })
     .then(() => {
-      sendInfoToUserEmail(email, username, randomPassword).catch(console.error)
+      sendInfoToUserEmail(email, username, randomPassword).catch(console.error);
     });
 };
