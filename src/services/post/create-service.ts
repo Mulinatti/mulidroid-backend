@@ -1,14 +1,6 @@
 import { db } from "../../db"
 import { employeeService, service } from "../../db/schema"
-
-interface CreateServiceRequest {
-	address: string
-	neighborhood: string
-	value: number
-	serviceDate: string
-	vehicle: string
-	employees: string[]
-}
+import type { IServicePost } from "../../interfaces/IService"
 
 export const createService = async ({
 	address,
@@ -17,7 +9,7 @@ export const createService = async ({
 	serviceDate,
 	vehicle,
 	employees,
-}: CreateServiceRequest) => {
+}: IServicePost) => {
 	const createdService = await db
 		.insert(service)
 		.values({
