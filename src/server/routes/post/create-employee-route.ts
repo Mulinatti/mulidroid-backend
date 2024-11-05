@@ -1,7 +1,6 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
 import z from "zod"
 import { createEmployee } from "../../../services/post/create-employee"
-import { sendInfoToUserEmail } from "../../../utils/send-info-to-user-email"
 
 export const createEmployeesRoute: FastifyPluginAsyncZod = async app => {
 	app.post(
@@ -13,14 +12,14 @@ export const createEmployeesRoute: FastifyPluginAsyncZod = async app => {
 					birthdate: z.string().min(1),
 					alias: z.string().min(1),
 					driver: z.boolean().default(false),
-					username: z.string().min(1),
+					username: z.string().min(6),
 					email: z.string().email().min(1),
-					phoneNumber: z.string().min(1),
+					phoneNumber: z.string().min(11),
 				}),
 			},
 		},
 		async request => {
-			await createEmployee(request.body)
+			await createEmployee(request.body);
 		}
 	)
 }
