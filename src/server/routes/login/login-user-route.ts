@@ -14,7 +14,8 @@ export const loginUserRoute: FastifyPluginAsyncZod = async app => {
 			},
 		},
 		async request => {
-			await loginUser(request.body);
+			const user = await loginUser(request.body);
+			return user;
 		}
 	)
 }

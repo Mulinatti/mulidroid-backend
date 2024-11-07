@@ -1,18 +1,25 @@
 import { compare } from "bcrypt";
-import type { IUserPost } from "../../interfaces/IUser";
+import type { IUser, IUserRequest } from "../../interfaces/IUser";
 import { db } from "../../db";
-import { user } from "../../db/schema";
+import { user as userTable} from "../../db/schema";
 import { eq } from "drizzle-orm";
 
-export const loginUser = async ({ username, password }: IUserPost) => {
+export const loginUser = async ({ username, password }: IUserRequest) => {
   const userCredentials = await db
     .select()
-    .from(user)
-    .where(eq(user.username, username))
+    .from(userTable)
+    .where(eq(userTable.username, username))
     .limit(1);
 
-  if(!userCredentials[0] || !await compare(password, userCredentials[0].password))
+    const user: IUser = userCredentials[0];
+
+  if(!user || !await compare(password, user.password))
     throw new Error("Credenciais incorretas")
 
-  console.log("Usuário logou")
+  return {
+    id: user.id,
+    username: user.username,
+    employeeId: user.employeeId,
+    admin: user.admin
+  }
 };
