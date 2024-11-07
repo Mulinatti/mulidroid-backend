@@ -26,5 +26,5 @@ export const getEmployees = async () => {
 		.from(employee)
 		.leftJoin(servicesCount, eq(servicesCount.employeeId, employee.id))
 
-	return { employees }
+	return employees;
 }
