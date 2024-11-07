@@ -6,7 +6,6 @@ interface IServiceRequest {
   value: number;
   vehicle: string;
   employees: string[];
-  phoneNumber: string;
 }
 
 export interface IServicePost extends IServiceRequest {}

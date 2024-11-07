@@ -19,6 +19,7 @@ import { updateEmployeesByIdRoute } from "./routes/put/update-employee-by-id-rou
 import { updateServiceByIdRoute } from "./routes/put/update-service-by-id-route";
 import { updateUserByIdRoute } from "./routes/put/update-user-by-id-route";
 import { loginUserRoute } from "./routes/login/login-user-route";
+import { employeeServicePaymentRoute } from "./routes/post/employee-service-payment";
 
 const app = fastify();
 
@@ -45,6 +46,8 @@ app.register(updateServiceByIdRoute);
 app.register(updateUserByIdRoute);
 
 app.register(loginUserRoute);
+
+app.register(employeeServicePaymentRoute);
 
 app
   .listen({
