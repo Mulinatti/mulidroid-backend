@@ -9,13 +9,13 @@ export const loginUserRoute: FastifyPluginAsyncZod = async app => {
 			schema: {
 				body: z.object({
 					username: z.string(),
-          password: z.string()
+					password: z.string(),
 				}),
 			},
 		},
 		async request => {
-			const user = await loginUser(request.body);
-			return user;
+			const user = await loginUser(request.body)
+			return user
 		}
 	)
 }

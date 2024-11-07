@@ -19,7 +19,7 @@ export const createEmployeesRoute: FastifyPluginAsyncZod = async app => {
 			},
 		},
 		async request => {
-			await createEmployee(request.body);
+			await createEmployee(request.body)
 		}
 	)
 }

@@ -1,7 +1,7 @@
 export interface IVehicle {
-  id?: string;
-  plate: string;
-  model: string;
+	id?: string
+	plate: string
+	model: string
 }
 
-export interface IVehiclePost extends IVehicle {};
+export interface IVehiclePost extends IVehicle {}

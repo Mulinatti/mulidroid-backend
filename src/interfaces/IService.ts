@@ -1,11 +1,11 @@
 interface IServiceRequest {
-  id?: string;
-  address: string;
-  neighborhood: string;
-  serviceDate: string;
-  value: number;
-  vehicle: string;
-  employees: string[];
+	id?: string
+	address: string
+	neighborhood: string
+	serviceDate: string
+	value: number
+	vehicle: string
+	employees: string[]
 }
 
 export interface IServicePost extends IServiceRequest {}
