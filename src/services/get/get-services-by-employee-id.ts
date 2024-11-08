@@ -17,10 +17,11 @@ export const getServicesByEmployeeId = async (employeeId: string) => {
 	const services = await db
 		.with(employeesCount)
 		.select({
-			serviceId: service.id,
+			id: service.id,
 			address: service.address,
 			neighborhood: service.neighborhood,
 			serviceDate: service.serviceDate,
+			value: service.value,
 			employeesCount: employeesCount.employeesCount,
 		})
 		.from(service)
