@@ -17,7 +17,7 @@ export const getServices = async () => {
 	const services = await db
 		.with(employeesCount)
 		.select({
-			serviceId: service.id,
+			id: service.id,
 			address: service.address,
 			neighborhood: service.neighborhood,
 			value: service.value,
