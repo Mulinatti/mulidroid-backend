@@ -60,7 +60,7 @@ export const getServiceById = async (serviceId: string) => {
 
 		return {
 			...emp,
-			totalServices: serviceCount,
+			servicesCount: serviceCount,
 		}
 	})
 
