@@ -1,8 +1,9 @@
-import { and, eq } from "drizzle-orm";
+import { and, count, eq } from "drizzle-orm";
 import { db } from "../../db";
 import { employee, employeeService, service, vehicle } from "../../db/schema";
 
 export const getEmployeeById = async (employeeId: string) => {
+
   const employeeFound = await db
     .select()
     .from(employee)
@@ -15,7 +16,10 @@ export const getEmployeeById = async (employeeId: string) => {
       neighborhood: service.neighborhood,
       value: service.value,
       serviceDate: service.serviceDate,
-      vehicle: service.vehicle,
+      vehicle: {
+        plate: vehicle.plate,
+        model: vehicle.model,
+      },
     })
     .from(service)
     .leftJoin(employeeService, eq(employeeService.serviceId, service.id))
@@ -27,9 +31,28 @@ export const getEmployeeById = async (employeeId: string) => {
       )
     );
 
+  const employeeCounts = await db
+    .select({
+      serviceId: employeeService.serviceId,
+      employeesCount: count(employeeService.employeeId).as("employeesCount"),
+    })
+    .from(employeeService)
+    .groupBy(employeeService.serviceId);
+
+  const servicesWithEmployeeCount = services.map((service) => {
+    const count = employeeCounts.find(
+      (employeeCount) => employeeCount.serviceId === service.id
+    )?.employeesCount || 0;
+
+    return {
+      ...service,
+      employeesCount: count,
+    };
+  });
+
   return {
     ...employeeFound[0],
-    services,
-		servicesCount: services.length
+    services: servicesWithEmployeeCount,
+    servicesCount: services.length,
   };
 };
