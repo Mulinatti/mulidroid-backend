@@ -34,7 +34,7 @@ export const getServiceById = async (serviceId: string) => {
 	const employeeServiceCount = await db
 		.select({
 			employeeId: employeeService.employeeId,
-			totalServices: count(employeeService.serviceId).as("totalServices"),
+			servicesCount: count(employeeService.serviceId).as("servicesCount"),
 		})
 		.from(employeeService)
 		.where(eq(employeeService.isPaid, false))
@@ -56,7 +56,7 @@ export const getServiceById = async (serviceId: string) => {
 	const employeesWithServiceCount = employees.map((emp) => {
 		const serviceCount = employeeServiceCount.find(
 			(count) => count.employeeId === emp.id
-		)?.totalServices || 0
+		)?.servicesCount || 0
 
 		return {
 			...emp,
