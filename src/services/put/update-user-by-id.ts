@@ -10,7 +10,7 @@ export const updateUserById = async ({ username, password }: IUserPost, employee
 		.update(user)
 		.set({
 			username,
-			password,
+			password: newPassword,
 		})
 		.where(eq(user.employeeId, employeeId))
 }
