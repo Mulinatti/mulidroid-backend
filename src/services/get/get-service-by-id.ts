@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { count, eq } from "drizzle-orm"
 import { db } from "../../db"
 import { employee, employeeService, service as serviceTable, vehicle } from "../../db/schema"
 
@@ -31,6 +31,15 @@ export const getServiceById = async (serviceId: string) => {
 		.leftJoin(vehicle, eq(vehicle.id, serviceTable.vehicle))
 		.limit(1)
 
+	const employeeServiceCount = await db
+		.select({
+			employeeId: employeeService.employeeId,
+			totalServices: count(employeeService.serviceId).as("totalServices"),
+		})
+		.from(employeeService)
+		.where(eq(employeeService.isPaid, false))
+		.groupBy(employeeService.employeeId)
+
 	const employees = await db
 		.select({
 			id: employee.id,
@@ -44,9 +53,20 @@ export const getServiceById = async (serviceId: string) => {
 		.innerJoin(employee, eq(employeeService.employeeId, employee.id))
 		.where(eq(employeeService.serviceId, serviceId))
 
+	const employeesWithServiceCount = employees.map((emp) => {
+		const serviceCount = employeeServiceCount.find(
+			(count) => count.employeeId === emp.id
+		)?.totalServices || 0
+
+		return {
+			...emp,
+			totalServices: serviceCount,
+		}
+	})
+
 	const service = {
 		...serviceFound[0],
-		employees,
+		employees: employeesWithServiceCount,
 	}
 
 	return service
