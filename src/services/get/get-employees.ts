@@ -3,7 +3,6 @@ import { db } from "../../db";
 import { employee, employeeService, service } from "../../db/schema";
 
 export const getEmployees = async () => {
-
   const servicesCount = db.$with("services_count").as(
     db
       .select({
@@ -12,10 +11,7 @@ export const getEmployees = async () => {
       })
       .from(employeeService)
       .where(eq(employeeService.isPaid, false))
-      .innerJoin(
-        service,
-        eq(service.id, employeeService.serviceId)
-      )
+      .innerJoin(service, eq(service.id, employeeService.serviceId))
       .groupBy(employeeService.employeeId)
   );
 
@@ -23,12 +19,15 @@ export const getEmployees = async () => {
     .with(servicesCount)
     .select({
       id: employee.id,
+      alias: employee.alias,
       name: employee.name,
       driver: employee.driver,
-      servicesCount: servicesCount.servicesCount
+      birthdate: employee.birthdate,
+      phoneNumber: employee.phoneNumber,
+			servicesCount: servicesCount.servicesCount
     })
     .from(employee)
     .leftJoin(servicesCount, eq(servicesCount.employeeId, employee.id));
 
-  return { employees };
+  return employees;
 };

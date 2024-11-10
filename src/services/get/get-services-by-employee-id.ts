@@ -1,8 +1,8 @@
-import { count, eq } from "drizzle-orm"
+import { and, count, eq } from "drizzle-orm"
 import { db } from "../../db"
-import { employee, employeeService, service, vehicle } from "../../db/schema"
+import { employee, employeeService, service } from "../../db/schema"
 
-export const getServices = async () => {
+export const getServicesByEmployeeId = async (employeeId: string) => {
 	const employeesCount = db.$with("employees_count").as(
 		db
 			.select({
@@ -20,17 +20,17 @@ export const getServices = async () => {
 			id: service.id,
 			address: service.address,
 			neighborhood: service.neighborhood,
-			value: service.value,
 			serviceDate: service.serviceDate,
-			vehicle: {
-				plate: vehicle.plate,
-				model: vehicle.model,
-			},
+			value: service.value,
 			employeesCount: employeesCount.employeesCount,
 		})
 		.from(service)
+		.innerJoin(
+			employeeService,
+			and(eq(service.id, employeeService.serviceId), eq(employeeService.employeeId, employeeId))
+		)
+		.where(eq(employeeService.isPaid, false))
 		.leftJoin(employeesCount, eq(service.id, employeesCount.serviceId))
-		.leftJoin(vehicle, eq(vehicle.id, service.vehicle))
 		.orderBy(service.serviceDate)
 
 	return services

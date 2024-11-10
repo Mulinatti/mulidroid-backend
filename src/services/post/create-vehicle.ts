@@ -1,14 +1,10 @@
-import { db } from "../../db";
-import { vehicle } from "../../db/schema";
+import { db } from "../../db"
+import { vehicle } from "../../db/schema"
+import type { IVehiclePost } from "../../interfaces/IVehicle"
 
-interface CreateVehicleRequest {
-  plate: string;
-  model: string;
-}
-
-export const createVehicle = async ({plate, model}: CreateVehicleRequest) => {
-  await db.insert(vehicle).values({
-    plate,
-    model
-  })
+export const createVehicle = async ({ plate, model }: IVehiclePost) => {
+	await db.insert(vehicle).values({
+		plate,
+		model,
+	})
 }
